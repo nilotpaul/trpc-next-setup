@@ -2,7 +2,7 @@ import { loggerLink } from "@trpc/client";
 import { experimental_createTRPCNextAppDirServer as createTRPCAppDirServer } from "@trpc/next/app-dir/server";
 import { experimental_nextCacheLink as nextCacheLink } from "@trpc/next/app-dir/links/nextCache";
 import { AppRouter, appRouter } from "@/server/root";
-import { userSession } from "../auth/utils";
+import { createTRPCContext } from "./context/TRPCContext";
 
 export const trpcS = createTRPCAppDirServer<AppRouter>({
   config() {
@@ -14,13 +14,8 @@ export const trpcS = createTRPCAppDirServer<AppRouter>({
 
         nextCacheLink({
           router: appRouter,
-          createContext: async () => {
-            const { session } = await userSession();
-
-            return {
-              session,
-            };
-          },
+          createContext: async () => createTRPCContext(),
+          revalidate: 1,
         }),
       ],
     };

@@ -9,11 +9,11 @@ export const testRouter = router({
         num: z.coerce.number(),
       })
     )
-    .query(async ({ input }) => {
+    .query(async ({ input, ctx: { req, session } }) => {
       return input;
     }),
 
-  getName: protectedProcedure.query(async ({ ctx: { session } }) => {
+  getName: protectedProcedure.query(async () => {
     return `your name`;
   }),
 });

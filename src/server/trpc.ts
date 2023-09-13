@@ -16,6 +16,8 @@ const isAuthenticated = t.middleware(async ({ ctx, next }) => {
   return next({
     ctx: {
       session: ctx.session,
+      req: ctx.req,
+      resHeaders: ctx.resHeaders,
     },
   });
 });

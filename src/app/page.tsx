@@ -10,7 +10,6 @@ export default async function Home() {
 
   return (
     <div>
-      hey
       <Client initialData={data} session={session} />
     </div>
   );
